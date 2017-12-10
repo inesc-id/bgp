@@ -16,7 +16,8 @@ parser.add_argument('--cmd', default='ifconfig',
                     help="Command to run inside node.")
 
 FLAGS = parser.parse_args()
-#node_pat = re.compile(r'.*bash ... mininet:.*')
+#TODO: Why does the real regex not work?
+#node_pat = re.compile(r'.*bash ... mininet:(.*)')
 node_pat = re.compile(r'.*bash --norc -is mininet:(.*)')
 
 
@@ -27,13 +28,11 @@ def list_nodes(do_print=False):
     # Mapping from name to pid.
     ret = {}
     for line in out.split('\n'):
-        #print(line)
         match = node_pat.match(line)
-        print(match)
         if not match:
             continue
-        print line
         name = match.group(1)
+        print(name)
         pid = line.split()[1]
         if do_print:
             print "name: %6s, pid: %6s" % (name, pid)
