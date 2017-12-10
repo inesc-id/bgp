@@ -17,7 +17,7 @@ parser.add_argument('--cmd', default='ifconfig',
 
 FLAGS = parser.parse_args()
 #!node_pat = re.compile(r'.*bash ... mininet:.*')
-node_pat = re.compile(r'.*bash...mininet:.*')
+node_pat = re.compile(r'.*bash ... mininet:.*')
 
 
 def list_nodes(do_print=False):
@@ -27,6 +27,7 @@ def list_nodes(do_print=False):
     # Mapping from name to pid.
     ret = {}
     for line in out.split('\n'):
+        print(line)
         match = node_pat.match(line)
         if not match:
             continue
