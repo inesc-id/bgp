@@ -16,6 +16,8 @@ parser.add_argument('--cmd', default='ifconfig',
                     help="Command to run inside node.")
 
 FLAGS = parser.parse_args()
+
+
 #TODO: Why does the real regex not work?
 #node_pat = re.compile(r'.*bash ... mininet:(.*)')
 node_pat = re.compile(r'.*bash --norc -is mininet:(.*)')
