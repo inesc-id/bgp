@@ -4,4 +4,4 @@
 router=${1:-R1}
 echo "Connecting to $router shell"
 
-sudo python run.py --node $router --cmd "telnet localhost bgpd"
+sudo python run.py --node $router --cmd "telnet localhost bgpd" --list
