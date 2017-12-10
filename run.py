@@ -27,6 +27,9 @@ def list_nodes(do_print=False):
     ret = {}
     for line in out.split('\n'):
         match = node_pat.match(line)
+        if not match:
+            continue
+        print line
         name = match.group(1)
         pid = line.split()[1]
         if do_print:
