@@ -32,7 +32,6 @@ def list_nodes(do_print=False):
         if not match:
             continue
         name = match.group(1)
-        print(name)
         pid = line.split()[1]
         if do_print:
             print "name: %6s, pid: %6s" % (name, pid)
@@ -56,6 +55,8 @@ def main():
         sys.exit(1)
 
     cmd = ' '.join(FLAGS.cmd)
+    print (cmd)
+    print(pid)
     os.system("mnexec -a %s %s" % (pid, cmd))
 
 
