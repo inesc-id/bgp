@@ -17,7 +17,7 @@ parser.add_argument('--cmd', default='ifconfig',
 
 FLAGS = parser.parse_args()
 #!node_pat = re.compile(r'.*bash ... mininet:.*')
-node_pat = re.compile(r'.*')
+node_pat = re.compile(r'.*bash...mininet:.*')
 
 
 def list_nodes(do_print=False):
