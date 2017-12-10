@@ -27,7 +27,7 @@ def list_nodes(do_print=False):
     # Mapping from name to pid.
     ret = {}
     for line in out.split('\n'):
-        print(line)
+        #print(line)
         match = node_pat.match(line)
         print(match)
         if not match:
