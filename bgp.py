@@ -100,22 +100,6 @@ class SimpleTopo(Topo):
         # This MUST be added at the end
         self.addLink('R1', 'R4')
 
-        # try to get hw intf from the command line; by default, use eth1
-        intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
-        info( '*** Connecting to hw intf: %s' % intfName )
-
-        info( '*** Checking', intfName, '\n' )
-        checkIntf( intfName )
-
-        router = self.switches[ 0 ]
-
-        info( '*** Adding hardware interface', intfName, 'to router',
-          router.name, '\n' )
-        _intf = Intf( intfName, node=router )
-
-        info( '*** Note: you may need to reconfigure the interfaces for '
-          'the Mininet hosts:\n', net.hosts, '\n' )
-
         return
 
 
@@ -171,7 +155,42 @@ def main():
     os.system("killall -9 zebra bgpd > /dev/null 2>&1")
     os.system('pgrep -f webserver.py | xargs kill -9')
 
+
+
+
+    setLogLevel( 'info' )
+
+    # try to get hw intf from the command line; by default, use eth1
+    intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
+    info( '*** Connecting to hw intf: %s' % intfName )
+
+    info( '*** Checking', intfName, '\n' )
+    checkIntf( intfName )
+
+    info( '*** Creating network\n' )
+
+
+
+
     net = Mininet(topo=SimpleTopo(), switch=Router)
+
+
+
+
+
+    switch = net.switches[ 0 ]
+    info( '*** Adding hardware interface', intfName, 'to switch',
+          switch.name, '\n' )
+    _intf = Intf( intfName, node=switch )
+
+    info( '*** Note: you may need to reconfigure the interfaces for '
+          'the Mininet hosts:\n', net.hosts, '\n' )
+
+
+
+
+
+    
     net.start()
     for router in net.switches:
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
