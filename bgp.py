@@ -17,6 +17,12 @@ import os
 import termcolor as T
 import time
 
+#hwintf.py
+
+import re
+from mininet.log import error
+from mininet.link import Intf
+
 setLogLevel('info')
 
 parser = ArgumentParser("Configure simple BGP network in Mininet.")
@@ -82,11 +88,6 @@ class SimpleTopo(Topo):
                 hosts.append(host)
                 self.addLink(router, host)
 
-
-        hosts.append(self.addNode('h1-4', ip='10.211.55.9'))
-        self.addLink('h1-4', 'R1')
-
-
         for i in xrange(num_ases-1):
             self.addLink('R%d' % (i+1), 'R%d' % (i+2))
 
@@ -98,7 +99,43 @@ class SimpleTopo(Topo):
             self.addLink('R4', hostname)
         # This MUST be added at the end
         self.addLink('R1', 'R4')
+
+        # try to get hw intf from the command line; by default, use eth1
+        
+        # intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
+        intfName = 'eth2'
+        info( '*** Connecting to hw intf: %s' % intfName )
+
+        info( '*** Checking', intfName, '\n' )
+        checkIntf( intfName 
+
+        switch = net.switches[ 0 ]
+
+        info( '*** Adding hardware interface', intfName, 'to switch',
+          switch.name, '\n' )
+        _intf = Intf( intfName, node=switch )
+
+        info( '*** Note: you may need to reconfigure the interfaces for '
+          'the Mininet hosts:\n', net.hosts, '\n' )
+
         return
+
+
+
+
+def checkIntf( intf ):
+    "Make sure intf exists and is not configured."
+    config = quietRun( 'ifconfig %s 2>/dev/null' % intf, shell=True )
+    if not config:
+        error( 'Error:', intf, 'does not exist!\n' )
+        exit( 1 )
+    ips = re.findall( r'\d+\.\d+\.\d+\.\d+', config )
+    if ips:
+        error( 'Error:', intf, 'has an IP address,'
+               'and is probably in use!\n' )
+        exit( 1 )
+
+
 
 
 def getIP(hostname):
