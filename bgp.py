@@ -178,10 +178,10 @@ def main():
 
 
 
-    switch = net.switches[ 0 ]
-    info( '*** Adding hardware interface', intfName, 'to switch',
-          switch.name, '\n' )
-    _intf = Intf( intfName, node=switch )
+    host = net.hosts[ 0 ]
+    info( '*** Adding hardware interface', intfName, 'to host',
+          host.name, '\n' )
+    _intf = Intf( intfName, node=host )
 
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
@@ -190,7 +190,7 @@ def main():
 
 
 
-    
+
     net.start()
     for router in net.switches:
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
