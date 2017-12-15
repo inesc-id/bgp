@@ -107,11 +107,11 @@ class SimpleTopo(Topo):
         info( '*** Checking', intfName, '\n' )
         checkIntf( intfName )
 
-        switch = routers[ 0 ]
+        router = self.getNodeByName('R1')
 
-        info( '*** Adding hardware interface', intfName, 'to switch',
-          switch.name, '\n' )
-        _intf = Intf( intfName, node=switch )
+        info( '*** Adding hardware interface', intfName, 'to router',
+          router.name, '\n' )
+        _intf = Intf( intfName, node=router )
 
         info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
