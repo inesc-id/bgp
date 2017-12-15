@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     info( '*** Adding hardware interface', intfName, 'to host',
           h3.name, '\n' )
-    _intf = Intf( intfName, node=hosts )
+    _intf = Intf( intfName, node=host )
 
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
