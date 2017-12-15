@@ -160,8 +160,8 @@ def main():
 
     setLogLevel( 'info' )
 
-    # try to get hw intf from the command line; by default, use eth1
-    intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
+    # try to get hw intf from the command line; by default, use eth0
+    intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth0'
     info( '*** Connecting to hw intf: %s' % intfName )
 
     info( '*** Checking', intfName, '\n' )
@@ -178,12 +178,10 @@ def main():
 
 
     router = net.getNodeByName('R1')
-    host = net.addHost('h1-4', ip='11.0.4.1')
-    net.addLink(router, host)
     
-    info( '*** Adding hardware interface', intfName, 'to host',
-          host.name, '\n' )
-    _intf = Intf( intfName, node=host )
+    info( '*** Adding hardware interface', intfName, 'to router',
+          router.name, '\n' )
+    _intf = Intf( intfName, node=router )
 
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
