@@ -107,7 +107,7 @@ class SimpleTopo(Topo):
         info( '*** Connecting to hw intf: %s' % intfName )
 
         info( '*** Checking', intfName, '\n' )
-        checkIntf( intfName 
+        checkIntf( intfName )
 
         switch = routers[ 0 ]
 
