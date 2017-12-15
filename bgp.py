@@ -82,6 +82,11 @@ class SimpleTopo(Topo):
                 hosts.append(host)
                 self.addLink(router, host)
 
+
+        hosts.append(self.addNode('h1-4', ip='10.211.55.9'))
+        self.addLink('h1-4', 'R1')
+
+
         for i in xrange(num_ases-1):
             self.addLink('R%d' % (i+1), 'R%d' % (i+2))
 
@@ -119,6 +124,10 @@ def getGateway(hostname):
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
     return host.popen("python webserver.py --text '%s'" % text, shell=True)
+
+def startCryptoPingServer(net, hostname):
+    host = net.getNodeByName(hostname)
+    return host.popen("python CryptoPingServer.py")
 
 
 def main():
