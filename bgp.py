@@ -109,7 +109,7 @@ class SimpleTopo(Topo):
         info( '*** Checking', intfName, '\n' )
         checkIntf( intfName 
 
-        switch = router[ 0 ]
+        switch = routers[ 0 ]
 
         info( '*** Adding hardware interface', intfName, 'to switch',
           switch.name, '\n' )
