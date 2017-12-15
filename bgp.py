@@ -101,9 +101,7 @@ class SimpleTopo(Topo):
         self.addLink('R1', 'R4')
 
         # try to get hw intf from the command line; by default, use eth1
-        
-        # intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
-        intfName = 'eth2'
+        intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth1'
         info( '*** Connecting to hw intf: %s' % intfName )
 
         info( '*** Checking', intfName, '\n' )
