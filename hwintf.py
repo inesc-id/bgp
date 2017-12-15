@@ -35,7 +35,7 @@ if __name__ == '__main__':
     info( '*** Connecting to hw intf: %s' % intfName )
 
     info( '*** Checking', intfName, '\n' )
-    checkIntf( intfName )
+    # checkIntf( intfName )
 
     info( '*** Creating network\n' )
     net = Mininet( topo=TreeTopo( depth=1, fanout=2 ) )
