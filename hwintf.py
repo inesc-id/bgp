@@ -35,15 +35,17 @@ if __name__ == '__main__':
     info( '*** Connecting to hw intf: %s' % intfName )
 
     info( '*** Checking', intfName, '\n' )
-    # checkIntf( intfName )
+    checkIntf( intfName )
 
     info( '*** Creating network\n' )
     net = Mininet( topo=TreeTopo( depth=1, fanout=2 ) )
 
-    switch = net.hosts[ 0 ]
-    info( '*** Adding hardware interface', intfName, 'to switch',
-          switch.name, '\n' )
-    _intf = Intf( intfName, node=switch )
+    h3 = net.addHost('h3', ip='10.37.129.4')
+    net.addLink(net.switches[ 0 ], h3)
+
+    info( '*** Adding hardware interface', intfName, 'to host',
+          h3.name, '\n' )
+    _intf = Intf( intfName, node=hosts )
 
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
