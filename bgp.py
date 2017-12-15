@@ -107,10 +107,10 @@ class SimpleTopo(Topo):
         info( '*** Checking', intfName, '\n' )
         checkIntf( intfName )
 
-        router = 'R1'
+        router = Topo.getNodeByName('R1')
 
         info( '*** Adding hardware interface', intfName, 'to router',
-          router, '\n' )
+          router.name, '\n' )
         _intf = Intf( intfName, node=router )
 
         info( '*** Note: you may need to reconfigure the interfaces for '
