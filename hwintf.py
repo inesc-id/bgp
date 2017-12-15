@@ -40,12 +40,10 @@ if __name__ == '__main__':
     info( '*** Creating network\n' )
     net = Mininet( topo=TreeTopo( depth=1, fanout=2 ) )
 
-    h3 = net.addHost('h3', ip='10.37.129.4')
-    net.addLink(net.switches[ 0 ], h3)
 
     info( '*** Adding hardware interface', intfName, 'to host',
-          h3.name, '\n' )
-    _intf = Intf( intfName, node=h3 )
+          net.hosts[ 0 ].name, '\n' )
+    _intf = Intf( intfName, node=net.hosts[ 0 ] )
 
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
