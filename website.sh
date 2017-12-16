@@ -5,7 +5,7 @@ bold=`tput bold`
 normal=`tput sgr0`
 
 while true; do
-    out=`sudo python run.py --node $node --cmd "curl -s 11.0.3.1:8000"`
+    out=`sudo python run.py --node $node --cmd "curl -s 11.0.4.1:8000"`
     date=`date`
     echo $date -- $bold$out$normal
     sleep 1
