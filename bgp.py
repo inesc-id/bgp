@@ -2,10 +2,11 @@
 
 from mininet.topo import Topo
 from mininet.net import Mininet
-from mininet.log import lg, info, setLogLevel
+from mininet.log import lg, info, setLogLevel, error
 from mininet.util import dumpNodeConnections, quietRun, moveIntf
 from mininet.cli import CLI
 from mininet.node import Switch, OVSKernelSwitch
+from mininet.link import Intf
 
 from subprocess import Popen, PIPE, check_output
 from time import sleep, time
@@ -16,12 +17,8 @@ import sys
 import os
 import termcolor as T
 import time
-
-#hwintf.py
-
 import re
-from mininet.log import error
-from mininet.link import Intf
+
 
 setLogLevel('info')
 
@@ -104,8 +101,6 @@ class SimpleTopo(Topo):
         return
 
 
-
-
 def checkIntf( intf ):
     "Make sure intf exists and is not configured."
     config = quietRun( 'ifconfig %s 2>/dev/null' % intf, shell=True )
@@ -117,8 +112,6 @@ def checkIntf( intf ):
         error( 'Error:', intf, 'has an IP address,'
                'and is probably in use!\n' )
         exit( 1 )
-
-
 
 
 def getIP(hostname):
@@ -145,6 +138,7 @@ def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
     return host.popen("python webserver.py --text '%s'" % text, shell=True)
 
+
 def startCryptoPingServer(net, hostname):
     host = net.getNodeByName(hostname)
     return host.popen("python CryptoPingServer.py")
@@ -156,45 +150,19 @@ def main():
     os.system("killall -9 zebra bgpd > /dev/null 2>&1")
     os.system('pgrep -f webserver.py | xargs kill -9')
 
-
-
-
-    setLogLevel( 'info' )
-
-    # try to get hw intf from the command line; by default, use eth0
-    intfName = args.iface
-    info( '*** Connecting to hw intf: %s' % intfName )
-
-    info( '*** Checking', intfName, '\n' )
-    checkIntf( intfName )
-
+    info( '*** Checking', args.iface, '\n' )
+    checkIntf( args.iface )
+    
     info( '*** Creating network\n' )
-
-
-
-
     net = Mininet(topo=SimpleTopo(), switch=Router)
 
-
-
-
     router = net.getNodeByName('R1')
-    
-    host = net.addHost('h1-4', ip='11.0.4.1')
-    net.addLink( host, router )
-
-
-    info( '*** Adding hardware interface', intfName, 'to router',
+    info( '*** Adding hardware interface', args.iface, 'to router',
           router.name, '\n' )
-    _intf = Intf( intfName, node=router )
-
+    Intf( args.iface, node=router )
+    
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
-
-
-
-
-
 
     net.start()
     for router in net.switches:
