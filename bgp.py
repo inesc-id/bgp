@@ -19,7 +19,6 @@ import termcolor as T
 import time
 import re
 
-
 setLogLevel('info')
 
 parser = ArgumentParser("Configure simple BGP network in Mininet.")
@@ -97,7 +96,6 @@ class SimpleTopo(Topo):
             self.addLink('R4', hostname)
         # This MUST be added at the end
         self.addLink('R1', 'R4')
-
         return
 
 
@@ -185,8 +183,6 @@ def main():
     for host in net.hosts:
         host.cmd("ifconfig %s-eth0 %s" % (host.name, getIP(host.name)))
         host.cmd("route add default gw %s" % (getGateway(host.name)))
-
-
 
     log("Starting web servers", 'yellow')
     startWebserver(net, 'h3-1', "Default web server")
