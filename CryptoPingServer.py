@@ -28,7 +28,6 @@ def create_file(filename, data):
 def recv_data(sock): 
     
     a = sock.recv(4)
-    print(struct.calcsize(a))
     data_len = struct.unpack('!I',a)[0]
     data = sock.recv(data_len)
     
@@ -118,7 +117,6 @@ def main():
         print "New Client: " + str(addr)
 
         threading.Thread(None,handle_connection,None,(conn,addr)).start()
-        # handle_connection(conn,addr)
 
     return
 
