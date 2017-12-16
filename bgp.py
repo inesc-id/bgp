@@ -139,7 +139,7 @@ def startWebserver(net, hostname, text="Default web server"):
 
 def startCryptoPingServer(net, hostname):
     host = net.getNodeByName(hostname)
-    return host.popen("python CryptoPingServer.py `hostname -I` 10008")
+    return host.popen("python CryptoPingServer.py %s 10008" % (getIP(hostname)))
 
 
 def main():
