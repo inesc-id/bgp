@@ -81,6 +81,7 @@ def handle_connection(usersock,userinfo):
     return
 
 def getIP(hostname):
+    print(hostname)
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
     if AS == 4:
