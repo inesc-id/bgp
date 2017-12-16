@@ -27,7 +27,8 @@ def create_file(filename, data):
 
 def recv_data(sock): 
     
-    a = sock.recv(32)
+    a = sock.recv(4)
+    print(a)
     data_len = struct.unpack('!I',a)[0]
     data = sock.recv(data_len)
     
