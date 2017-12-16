@@ -10,7 +10,7 @@ from Crypto.PublicKey import RSA
 from Crypto import Random
 
 hopCount = 0
-hostname = "h3-2"
+hostname = "hostname"
 
 def read_file(filename):
 
