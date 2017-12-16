@@ -181,7 +181,7 @@ def main():
     router = net.getNodeByName('R1')
     
     host = net.addHost('h1-4', ip='11.0.4.1')
-     net.addLink( host, router )
+    net.addLink( host, router )
 
 
     info( '*** Adding hardware interface', intfName, 'to router',
