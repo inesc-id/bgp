@@ -10,6 +10,7 @@ from Crypto.PublicKey import RSA
 from Crypto import Random
 
 hopCount = 0
+hostname = "h3-2"
 
 def read_file(filename):
 
@@ -93,6 +94,7 @@ def getIP(hostname):
 def main():
 
     global hopCount
+    global hostname
 
     print "Getting ready for Cryptographic ping ..."
 
