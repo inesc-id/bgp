@@ -42,8 +42,10 @@ def send_data(sock,data):
     return
 
 def send_file_contents(file_name,usersock,userinfo): #DOWNLOAD
+    # This was so insecure. The client could have requested the private key or whatever file!
+    # data = read_file(file_name)
 
-    data = read_file(file_name)
+    data = read_file("%s-pub.key" % (hostname))
 
     send_data(usersock,data)
 
@@ -67,7 +69,7 @@ def handle_connection(usersock,userinfo):
     nonce = recv_data(usersock)
     print "Got nonce", nonce
 
-    pri = open("pri.key","r")
+    pri = open("%s-pri.key" % (hostname),"r")
     key = RSA.importKey(pri)
     hash = SHA256.new(nonce).digest()
 
@@ -78,6 +80,14 @@ def handle_connection(usersock,userinfo):
 
     return
 
+def getIP(hostname):
+    AS, idx = hostname.replace('h', '').split('-')
+    AS = int(AS)
+    if AS == 4:
+        AS = 3
+    ip = '%s.0.%s.1' % (10+AS, idx)
+    return ip
+
 # Arg 1 : my IP -> ip to bind the local socket
 # Arg 2 : my port -> port to bind the local socket
 def main():
@@ -86,19 +96,20 @@ def main():
 
     print "Getting ready for Cryptographic ping ..."
 
-    my_ip = sys.argv[1]
+    hostname = sys.argv[1]
+    my_ip = getIP(hostname)
     my_port = int(sys.argv[2])
 
-    if(not(os.path.isfile("pub.key"))):
+    if(not(os.path.isfile("%s-pub.key" % (hostname)))):
 
         random_generator = Random.new().read
         key = RSA.generate(1024,random_generator)
 
-        privateHandle = open("pri.key",'wb')
+        privateHandle = open("%s-pri.key" % (hostname),'wb')
         privateHandle.write(key.exportKey())
 
         public_key = key.publickey()
-        pubHandle = open("pub.key", 'wb')
+        pubHandle = open("%s-pub.key" % (hostname), 'wb')
         pubHandle.write(public_key.exportKey())
 
         pubHandle.close()
