@@ -139,7 +139,7 @@ def startWebserver(net, hostname, text="Default web server"):
 
 def startCryptoPingServer(net, hostname):
     host = net.getNodeByName(hostname)
-    return host.popen("python CryptoPingServer.py")
+    return host.popen("python CryptoPingServer.py `hostname -I` 10008")
 
 
 def main():
@@ -187,6 +187,10 @@ def main():
     log("Starting web servers", 'yellow')
     startWebserver(net, 'h3-1', "Default web server")
     startWebserver(net, 'h4-1', "*** Attacker web server ***")
+
+    log("Starting crypto ping servers", 'yellow')
+    startCryptoPingServer(net, 'h3-2')
+    startCryptoPingServer(net, 'h4-2')
 
     CLI(net)
     net.stop()
