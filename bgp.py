@@ -28,6 +28,7 @@ setLogLevel('info')
 parser = ArgumentParser("Configure simple BGP network in Mininet.")
 parser.add_argument('--rogue', action="store_true", default=False)
 parser.add_argument('--sleep', default=3, type=int)
+parser.add_argument('--iface', deafult'eth1')
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
@@ -161,7 +162,7 @@ def main():
     setLogLevel( 'info' )
 
     # try to get hw intf from the command line; by default, use eth0
-    intfName = sys.argv[ 1 ] if len( sys.argv ) > 1 else 'eth0'
+    intfName = args.iface
     info( '*** Connecting to hw intf: %s' % intfName )
 
     info( '*** Checking', intfName, '\n' )
@@ -212,6 +213,8 @@ def main():
     for host in net.hosts:
         host.cmd("ifconfig %s-eth0 %s" % (host.name, getIP(host.name)))
         host.cmd("route add default gw %s" % (getGateway(host.name)))
+
+    
 
     log("Starting web servers", 'yellow')
     startWebserver(net, 'h3-1', "Default web server")
