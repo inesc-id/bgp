@@ -117,8 +117,8 @@ def main():
         conn, addr = sock.accept()
         print "New Client: " + str(addr)
 
-        # threading.Thread(None,handle_connection,None,(conn,addr)).start()
-        handle_connection(conn,addr)
+        threading.Thread(None,handle_connection,None,(conn,addr)).start()
+        # handle_connection(conn,addr)
 
     return
 
