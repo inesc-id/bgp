@@ -151,7 +151,7 @@ def main():
     info( '*** Checking', args.iface, '\n' )
     checkIntf( args.iface )
     
-    os.system("sudo ip link set %s name R1-external" % (args.hostname));
+    os.system("sudo ip link set %s name R1-external" % (args.iface));
 
     info( '*** Creating network\n' )
     net = Mininet(topo=SimpleTopo(), switch=Router)
