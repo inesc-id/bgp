@@ -163,6 +163,9 @@ def main():
           'the Mininet hosts:\n', net.hosts, '\n' )
 
     net.start()
+
+    router.cmd("sudo ip link set %s name R1-external" % (args.iface));
+
     for router in net.switches:
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
         router.waitOutput()
