@@ -151,21 +151,20 @@ def main():
     info( '*** Checking', args.iface, '\n' )
     checkIntf( args.iface )
     
+    os.system("sudo ip link set %s name R1-external" % (args.hostname));
+
     info( '*** Creating network\n' )
     net = Mininet(topo=SimpleTopo(), switch=Router)
 
     router = net.getNodeByName('R1')
-    info( '*** Adding hardware interface', args.iface, 'to router',
+    info( '*** Adding hardware interface', 'R1-external', 'to router',
           router.name, '\n' )
-    Intf( args.iface, node=router )
+    Intf( 'R1-external', node=router )
     
     info( '*** Note: you may need to reconfigure the interfaces for '
           'the Mininet hosts:\n', net.hosts, '\n' )
 
     net.start()
-
-    router.cmd("sudo ip link set %s name R1-external" % (args.iface));
-
     for router in net.switches:
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
         router.waitOutput()
