@@ -24,7 +24,7 @@ setLogLevel('info')
 parser = ArgumentParser("Configure simple BGP network in Mininet.")
 parser.add_argument('--rogue', action="store_true", default=False)
 parser.add_argument('--sleep', default=3, type=int)
-parser.add_argument('--iface', default='eth1')
+parser.add_argument('--iface', default=None
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
@@ -148,21 +148,22 @@ def main():
     os.system("killall -9 zebra bgpd > /dev/null 2>&1")
     os.system('pgrep -f webserver.py | xargs kill -9')
 
-    info( '*** Checking', args.iface, '\n' )
-    checkIntf( args.iface )
-    
-    os.system("sudo ip link set %s name R1-external" % (args.iface));
-
     info( '*** Creating network\n' )
     net = Mininet(topo=SimpleTopo(), switch=Router)
 
-    router = net.getNodeByName('R1')
-    info( '*** Adding hardware interface', 'R1-external', 'to router',
-          router.name, '\n' )
-    Intf( 'R1-external', node=router )
-    
-    info( '*** Note: you may need to reconfigure the interfaces for '
-          'the Mininet hosts:\n', net.hosts, '\n' )
+    if (args.iface is not None):
+        info( '*** Checking', args.iface, '\n' )
+        checkIntf( args.iface )
+        
+        os.system("sudo ip link set %s name R1-external" % (args.iface));
+
+        router = net.getNodeByName('R1')
+        info( '*** Adding hardware interface', 'R1-external', 'to router',
+              router.name, '\n' )
+        Intf( 'R1-external', node=router )
+        
+        info( '*** Note: you may need to reconfigure the interfaces for '
+              'the Mininet hosts:\n', net.hosts, '\n' )
 
     net.start()
     for router in net.switches:
