@@ -95,7 +95,7 @@ class SimpleTopo(Topo):
             hosts.append(host)
             self.addLink('R4', hostname)
         # This MUST be added at the end
-        self.addLink('R1', 'R4')
+        self.addLink('R1', 'R4', bw=10, delay='10ms', loss=1, use_htb=True)
         return
 
 
