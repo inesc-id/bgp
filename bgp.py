@@ -149,7 +149,7 @@ def main():
     os.system('pgrep -f webserver.py | xargs kill -9')
 
     info( '*** Creating network\n' )
-    net = Mininet(topo=SimpleTopo(), switch=Router)
+    net = Mininet(topo=SimpleTopo(), switch=Router, link=TCLink)
 
     if (args.iface is not None):
         info( '*** Checking', args.iface, '\n' )
