@@ -24,7 +24,7 @@ setLogLevel('info')
 parser = ArgumentParser("Configure simple BGP network in Mininet.")
 parser.add_argument('--rogue', action="store_true", default=False)
 parser.add_argument('--sleep', default=3, type=int)
-parser.add_argument('--iface', default=None
+parser.add_argument('--iface', default=None)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
