@@ -6,7 +6,7 @@ from mininet.log import lg, info, setLogLevel, error
 from mininet.util import dumpNodeConnections, quietRun, moveIntf
 from mininet.cli import CLI
 from mininet.node import Switch, OVSKernelSwitch
-from mininet.link import Intf
+from mininet.link import Intf, TCLink
 
 from subprocess import Popen, PIPE, check_output
 from time import sleep, time
