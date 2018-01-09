@@ -2,7 +2,7 @@
 
 This tutorial extends [BGP Path Hijacking Attack Demo](https://github.com/mininet/mininet/wiki/BGP-Path-Hijacking-Attack-Demo). You can find the original [source code](https://bitbucket.org/jvimal/bgp/src/789055b95a666f0585e5eee67fbdb30876ab06ec?at=master) on Bitbucket.
 
-It adds an additional host with the ip address *11.0.4.1* to *R1* (gateway: *11.0.4.254*). This host is **not** running in mininet and has to be connected to a real network interface connected to the virtual machine.
+It adds an additional host with the ip address *11.0.4.1* to *AS1* (gateway: *11.0.4.254*). This host is **not** running in mininet and has to be connected to a real network interface connected to the virtual machine.
 
 Furthermore, it starts CryptoPingServers on *h3-2 (13.0.2.1:10008)* and *h4-2 (***13***.0.2.1:10008)*. Due to the fact that mininet hosts share the same directories, separate public and private keys are generated depending on the hosts.
 
@@ -18,7 +18,7 @@ username: `mininet`<br/>
 password: `mininet`
 
 
-Then clone this repository (checkout CrypotPingServer) and install the necessary dependencies with
+Then clone this repository and install the necessary dependencies with
 
 `$ ./install.sh`.
 
@@ -37,3 +37,5 @@ $ sudo route -n add 11.0.0.0/8 11.0.4.254
 $ sudo route -n add 12.0.0.0/8 11.0.4.254
 $ sudo route -n add 13.0.0.0/8 11.0.4.254
 ```
+
+![](Setup.png)
