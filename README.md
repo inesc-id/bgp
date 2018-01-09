@@ -26,7 +26,7 @@ Run mininet with
 
 `$ sudo python bgp.py --iface eth1`.
 
-Replace *eth1* with the name of your additional network interface. Mininet will only start if this controller is currently not in use. The default parameter is *eth1*.
+Replace *eth1* with the name of your additional network interface. If no parameter is given, mininet will start without connecting an external controller.
 
 Then, you need to find out the corresponding name of the network interface on your **host machine** (e.g. *vnic1*). Set the ip address of the interface to *11.0.4.1/24* and make *11.0.4.254* the gateway for the following nets: *11.0.0.0/8*, *12.0.0.0/8*, *13.0.0.0/8*. On macOS, this can be done with the following commands:
 

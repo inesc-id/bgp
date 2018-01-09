@@ -199,6 +199,7 @@ def main():
     net.stop()
     os.system("killall -9 zebra bgpd")
     os.system('pgrep -f webserver.py | xargs kill -9')
+    os.system("sudo ip link set AS1-external name %s" % (args.iface));
 
 
 if __name__ == "__main__":
