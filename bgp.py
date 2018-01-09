@@ -28,7 +28,7 @@ parser.add_argument('--iface', default=None)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
-ROGUE_AS_NAME = 'R4'
+ROGUE_AS_NAME = 'AS4'
 
 def log(s, col="green"):
     print T.colored(s, col)
@@ -74,11 +74,11 @@ class SimpleTopo(Topo):
         # The topology has one router per AS
 	routers = []
         for i in xrange(num_ases):
-            router = self.addSwitch('R%d' % (i+1))
+            router = self.addSwitch('AS%d' % (i+1))
 	    routers.append(router)
         hosts = []
         for i in xrange(num_ases):
-            router = 'R%d' % (i+1)
+            router = 'AS%d' % (i+1)
             for j in xrange(num_hosts_per_as):
                 hostname = 'h%d-%d' % (i+1, j+1)
                 host = self.addNode(hostname)
@@ -86,16 +86,16 @@ class SimpleTopo(Topo):
                 self.addLink(router, host)
 
         for i in xrange(num_ases-1):
-            self.addLink('R%d' % (i+1), 'R%d' % (i+2), bw=10, delay='5ms', loss=1, use_htb=True)
+            self.addLink('AS%d' % (i+1), 'AS%d' % (i+2), bw=10, delay='5ms', loss=1, use_htb=True)
 
-        routers.append(self.addSwitch('R4'))
+        routers.append(self.addSwitch('AS4'))
         for j in xrange(num_hosts_per_as):
             hostname = 'h%d-%d' % (4, j+1)
             host = self.addNode(hostname)
             hosts.append(host)
-            self.addLink('R4', hostname)
+            self.addLink('AS4', hostname)
         # This MUST be added at the end
-        self.addLink('R1', 'R4', bw=10, delay='10ms', loss=1, use_htb=True)
+        self.addLink('AS1', 'AS4', bw=10, delay='10ms', loss=1, use_htb=True)
         return
 
 
@@ -143,7 +143,7 @@ def startCryptoPingServer(net, hostname):
 
 
 def main():
-    os.system("rm -f /tmp/R*.log /tmp/R*.pid logs/*")
+    os.system("rm -f /tmp/AS*.log /tmp/AS*.pid logs/*")
     os.system("mn -c >/dev/null 2>&1")
     os.system("killall -9 zebra bgpd > /dev/null 2>&1")
     os.system('pgrep -f webserver.py | xargs kill -9')
@@ -155,12 +155,12 @@ def main():
         info( '*** Checking', args.iface, '\n' )
         checkIntf( args.iface )
         
-        os.system("sudo ip link set %s name R1-external" % (args.iface));
+        os.system("sudo ip link set %s name AS1-external" % (args.iface));
 
-        router = net.getNodeByName('R1')
-        info( '*** Adding hardware interface', 'R1-external', 'to router',
+        router = net.getNodeByName('AS1')
+        info( '*** Adding hardware interface', 'AS1-external', 'to router',
               router.name, '\n' )
-        Intf( 'R1-external', node=router )
+        Intf( 'AS1-external', node=router )
         
         info( '*** Note: you may need to reconfigure the interfaces for '
               'the Mininet hosts:\n', net.hosts, '\n' )
