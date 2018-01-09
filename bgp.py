@@ -199,7 +199,11 @@ def main():
     net.stop()
     os.system("killall -9 zebra bgpd")
     os.system('pgrep -f webserver.py | xargs kill -9')
-    os.system("sudo ip link set AS1-external name %s" % (args.iface));
+    if (args.iface is not None):
+        log("Waiting %d seconds before renaming AS1-external"
+            % args.sleep)
+        sleep(args.sleep)
+        os.system("sudo ip link set AS1-external name %s" % (args.iface));
 
 
 if __name__ == "__main__":
