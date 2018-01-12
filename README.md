@@ -6,9 +6,9 @@ It adds an additional host with the ip address *11.0.4.1* to *AS1* (gateway: *11
 
 Furthermore, it starts CryptoPingServers on *h3-2 (13.0.2.1:10008)* and *h4-2 (***13***.0.2.1:10008)*. Due to the fact that mininet hosts share the same directories, separate public and private keys are generated depending on the hosts.
 
-> Tested with VirtualBx 5.2.2 on macOS 10.13.2
+> Tested with VirtualBox 5.2.2 on macOS 10.13.2
 
-![](Setup.png)
+![](Setup.jpg)
 
 ## Setup
 
@@ -20,7 +20,7 @@ $ ./install.sh
 
 This will install all necessary dependencies including mininet and quagga.
 
-Alternatively, you can download a preconfigured virtual machine. Login credentials are the following:
+Alternatively, you can download a [preconfigured virtual machine](https://www.icloud.com/iclouddrive/0PdUf324iYbwSDNcEE_H_chzg#bgp.tar.gz). Login credentials are the following:
 
 username: `mininet`<br/>
 password: `mininet`
@@ -40,7 +40,7 @@ NAT Networks can be created and configured in the general VirtualBox settings. C
 
 Connect two network adapters to your virtual machine
 
-* NAT (for internet connection)
+* NAT (for Internet connection)
 * NAT Network (used as an external host connected to *AS1*)
 
 Run mininet with
