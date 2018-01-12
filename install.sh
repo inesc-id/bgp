@@ -6,6 +6,7 @@ cd mininet/util
 ./install.sh -a
 sudo apt-get install -y quagga curl screen
 sudo apt-get install python-dev
+#TODO: is python-setuptools needed?
 sudo apt-get install python-setuptools
 sudo easy_install termcolor
 sudo easy_install PyCrypto
