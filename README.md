@@ -8,6 +8,8 @@ Furthermore, it starts CryptoPingServers on *h3-2 (13.0.2.1:10008)* and *h4-2 (*
 
 > Tested with VirtualBx 5.2.2 on macOS 10.13.2
 
+![](Setup.png)
+
 ## Setup
 
 Download the latest [Ubuntu Server LTS](https://www.ubuntu.com/download/server) and make sure the system is up to date. Clone this repository and run
